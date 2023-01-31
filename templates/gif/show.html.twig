@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gif{% endblock %}
+
+{% block body %}
+    <h1>Gif</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ gif.id }}</td>
+            </tr>
+            <tr>
+                <th>Url</th>
+                <td>{{ gif.url }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_gif_index') }}">back to list</a>
+
+    <a href="{{ path('app_gif_edit', {'id': gif.id}) }}">edit</a>
+
+    {{ include('gif/_delete_form.html.twig') }}
+{% endblock %}
