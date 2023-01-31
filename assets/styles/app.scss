@@ -2,12 +2,29 @@
 @import "~bootstrap/scss/bootstrap";
 @import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500&display=swap');
 
+
+html,
+body {
+    height: 100%;
+}
+
 body {
     background-color: #000000;
     color: white;
     font-family: 'El Messiri';
+    height: 100%;
 }
 
 .home-img {
+    height: 100%;
+}
+
+.loginform {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 300px;
+    margin: auto;
     height: 100%;
 }
