@@ -8,13 +8,13 @@
 		<div class="navbar-collapse collapse" id="navbarsExample04" style="">
 			<ul class="navbar-nav me-auto mb-2 mb-md-0">
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="/pictures">PHOTOS</a>
+					<a class="nav-link active" aria-current="page" href="{{ path("app_picture_index") }}">PHOTOS</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="/videos">VIDEOS</a>
+					<a class="nav-link active" aria-current="page" href="{{ path("app_video_index") }}">VIDEOS</a>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link active" aria-current="page" href="/gifs">GIFS</a>
+					<a class="nav-link active" aria-current="page" href="{{ path("app_gif_index") }}">GIFS</a>
 				</li>
 				{% if app.user %}
 					<li class="nav-item">
