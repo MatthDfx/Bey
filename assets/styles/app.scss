@@ -1,2 +1,13 @@
 //start coding by removing this file and adding yours ;)
-@import "wcs";
+@import "~bootstrap/scss/bootstrap";
+@import url('https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500&display=swap');
+
+body {
+    background-color: #000000;
+    color: white;
+    font-family: 'El Messiri';
+}
+
+.home-img {
+    height: 100%;
+}
