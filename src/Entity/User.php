@@ -141,6 +141,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function isInLikeListPicture(Picture $picture): bool
+    {
+        if ($this->getLikeListPicture()->contains($picture)) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * @return Collection<int, Video>
      */
@@ -165,6 +173,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
+    public function isInLikeListVideo(Video $video): bool
+    {
+        if ($this->getLikeListVideo()->contains($video)) {
+            return true;
+        }
+        return false;
+    }
+
     /**
      * @return Collection<int, Gif>
      */
@@ -187,5 +203,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->likeListGif->removeElement($likeListGif);
 
         return $this;
+    }
+
+    public function isInLikeListGif(Gif $gif): bool
+    {
+        if ($this->getLikeListGif()->contains($gif)) {
+            return true;
+        }
+        return false;
     }
 }

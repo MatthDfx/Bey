@@ -1,35 +1,30 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Picture index{% endblock %}
+{% block title %}Photos
+{% endblock %}
 
 {% block body %}
-    <h1>Picture index</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Poster</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for picture in pictures %}
-            <tr>
-                <td>{{ picture.id }}</td>
-                <td>{{ picture.poster }}</td>
-                <td>
-                    <a href="{{ path('app_picture_show', {'id': picture.id}) }}">show</a>
-                    <a href="{{ path('app_picture_edit', {'id': picture.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
 
-    <a href="{{ path('app_picture_new') }}">Create new</a>
+	<div class="album py-5">
+		<div class="container">
+			<div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-2">
+				{% for picture in pictures %}
+
+					<div class="col">
+						<div class="card">
+							<a class="likePictureButton" href="{{ path('app_addPictureLikeList', {id: picture.id})}}">
+								<i class="bi {{ app.user.isInLikeListPicture(picture) ? 'bi-heart-fill' : 'bi-heart' }}"></i>
+							</a>
+							<img class="card-img-top" src="{{asset('build/images/' ~ picture.poster)}}" alt="Card image">
+
+						</div>
+					</div>
+
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+
+
 {% endblock %}

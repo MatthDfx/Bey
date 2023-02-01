@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Picture;
 use App\Form\PictureType;
 use App\Repository\PictureRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -17,6 +18,14 @@ class PictureController extends AbstractController
     public function index(PictureRepository $pictureRepository): Response
     {
         return $this->render('picture/index.html.twig', [
+            'pictures' => $pictureRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/', name: 'app_adminpicture_index', methods: ['GET'])]
+    public function indexAdmin(PictureRepository $pictureRepository): Response
+    {
+        return $this->render('admin/pictureindex.html.twig', [
             'pictures' => $pictureRepository->findAll(),
         ]);
     }
@@ -74,5 +83,30 @@ class PictureController extends AbstractController
         }
 
         return $this->redirectToRoute('app_picture_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/picture/{id}/likeList', name: 'app_addPictureLikeList', methods: ["GET", "POST"])]
+    public function addToLikeListPicture(int $id, Picture $picture, UserRepository $userRepository)
+    {
+        if (!$picture) {
+            throw $this->createNotFoundException(
+                'No picture with this id found in program\'s table.'
+            );
+        }
+
+        /** @var \App\Entity\User */
+        $user = $this->getUser();
+        if ($user->isInLikeListPicture($picture)) {
+            $user->removeLikeListPicture($picture);
+        } else {
+            $user->addLikeListPicture($picture);
+        }
+        $userRepository->save($user, true);
+
+        $isInLikeListPicture = $user->isInLikeListPicture($picture);
+
+        return $this->json([
+            'isInLikeListPicture' => $isInLikeListPicture
+        ]);
     }
 }

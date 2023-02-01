@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Video;
 use App\Form\VideoType;
 use App\Repository\VideoRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,7 +21,16 @@ class VideoController extends AbstractController
             'videos' => $videoRepository->findAll(),
         ]);
     }
+    #[IsGranted(['ROLE_ADMIN'])]
+    #[Route('/', name: 'app_adminvideo_index', methods: ['GET'])]
+    public function indexAdmin(VideoRepository $videoRepository): Response
+    {
+        return $this->render('admin/videoindex.html.twig', [
+            'videos' => $videoRepository->findAll(),
+        ]);
+    }
 
+    #[IsGranted(['ROLE_ADMIN'])]
     #[Route('/new', name: 'app_video_new', methods: ['GET', 'POST'])]
     public function new(Request $request, VideoRepository $videoRepository): Response
     {
@@ -40,6 +50,7 @@ class VideoController extends AbstractController
         ]);
     }
 
+    #[IsGranted(['ROLE_ADMIN'])]
     #[Route('/{id}', name: 'app_video_show', methods: ['GET'])]
     public function show(Video $video): Response
     {
@@ -48,6 +59,7 @@ class VideoController extends AbstractController
         ]);
     }
 
+    #[IsGranted(['ROLE_ADMIN'])]
     #[Route('/{id}/edit', name: 'app_video_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Video $video, VideoRepository $videoRepository): Response
     {
@@ -65,7 +77,7 @@ class VideoController extends AbstractController
             'form' => $form,
         ]);
     }
-
+    #[IsGranted(['ROLE_ADMIN'])]
     #[Route('/{id}', name: 'app_video_delete', methods: ['POST'])]
     public function delete(Request $request, Video $video, VideoRepository $videoRepository): Response
     {

@@ -6,7 +6,6 @@
 html,
 body {
     height: 100%;
-
 }
 
 body {
@@ -28,4 +27,8 @@ body {
     max-width: 300px;
     margin: auto;
     height: 100%;
+}
+
+.card {
+    --bs-card-bg: none;
 }
