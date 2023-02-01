@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Video;
 use App\Form\VideoType;
+use App\Repository\UserRepository;
 use App\Repository\VideoRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -86,5 +87,30 @@ class VideoController extends AbstractController
         }
 
         return $this->redirectToRoute('app_video_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/video/{id}/likeList', name: 'app_addVideoLikeList', methods: ["GET", "POST"])]
+    public function addToLikeListPicture(int $id, Video $video, UserRepository $userRepository)
+    {
+        if (!$video) {
+            throw $this->createNotFoundException(
+                'No video with this id found in program\'s table.'
+            );
+        }
+
+        /** @var \App\Entity\User */
+        $user = $this->getUser();
+        if ($user->isInLikeListVideo($video)) {
+            $user->removeLikeListVideo($video);
+        } else {
+            $user->addLikeListVideo($video);
+        }
+        $userRepository->save($user, true);
+
+        $isInLikeListVideo = $user->isInLikeListVideo($video);
+
+        return $this->json([
+            'isInLikeListVideo' => $isInLikeListVideo
+        ]);
     }
 }

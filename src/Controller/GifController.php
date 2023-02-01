@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Gif;
 use App\Form\GifType;
 use App\Repository\GifRepository;
+use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -74,5 +75,30 @@ class GifController extends AbstractController
         }
 
         return $this->redirectToRoute('app_gif_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/gif/{id}/likeList', name: 'app_addGifLikeList', methods: ["GET", "POST"])]
+    public function addToLikeListGif(int $id, Gif $gif, UserRepository $userRepository)
+    {
+        if (!$gif) {
+            throw $this->createNotFoundException(
+                'No gif with this id found in program\'s table.'
+            );
+        }
+
+        /** @var \App\Entity\User */
+        $user = $this->getUser();
+        if ($user->isInLikeListGif($gif)) {
+            $user->removeLikeListGif($gif);
+        } else {
+            $user->addLikeListGif($gif);
+        }
+        $userRepository->save($user, true);
+
+        $isInLikeListGif = $user->isInLikeListGif($gif);
+
+        return $this->json([
+            'isInLikeListGif' => $isInLikeListGif
+        ]);
     }
 }

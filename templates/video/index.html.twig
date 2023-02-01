@@ -4,33 +4,19 @@
 {% endblock %}
 
 {% block body %}
-	<h1>Video index</h1>
+	<div class="container py-4">
+		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-2">
+			<div class="p-5 mb-4 rounded-3">
+				<div class="container-fluid py-5">
+					{% for video in videos %}
+						<a class="likeVideoButton" href="{{ path('app_addVideoLikeList', {id: video.id})}}">
+							<i class="bi {{ app.user.isInLikeListVideo(video) ? 'bi-heart-fill' : 'bi-heart' }}"></i>
+						</a>
+						<iframe width="560" height="315" src="{{video.url}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-	<table class="table">
-		<thead>
-			<tr>
-				<th>Id</th>
-				<th>Url</th>
-				<th>actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for video in videos %}
-				<tr>
-					<td>{{ video.id }}</td>
-					<td>{{ video.url }}</td>
-					<td>
-						<a href="{{ path('app_video_show', {'id': video.id}) }}">show</a>
-						<a href="{{ path('app_video_edit', {'id': video.id}) }}">edit</a>
-					</td>
-				</tr>
-			{% else %}
-				<tr>
-					<td colspan="3">no records found</td>
-				</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-
-	<a href="{{ path('app_video_new') }}">Create new</a>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+	</div>
 {% endblock %}
