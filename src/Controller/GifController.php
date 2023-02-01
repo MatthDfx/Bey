@@ -6,6 +6,7 @@ use App\Entity\Gif;
 use App\Form\GifType;
 use App\Repository\GifRepository;
 use App\Repository\UserRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,6 +19,14 @@ class GifController extends AbstractController
     public function index(GifRepository $gifRepository): Response
     {
         return $this->render('gif/index.html.twig', [
+            'gifs' => $gifRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/admin', name: 'app_admingif_index', methods: ['GET'])]
+    public function indexAdmin(GifRepository $gifRepository): Response
+    {
+        return $this->render('admin/gifindex.html.twig', [
             'gifs' => $gifRepository->findAll(),
         ]);
     }

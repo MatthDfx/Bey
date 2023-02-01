@@ -22,8 +22,8 @@ class VideoController extends AbstractController
             'videos' => $videoRepository->findAll(),
         ]);
     }
-    #[IsGranted(['ROLE_ADMIN'])]
-    #[Route('/', name: 'app_adminvideo_index', methods: ['GET'])]
+
+    #[Route('/admin', name: 'app_adminvideo_index', methods: ['GET'])]
     public function indexAdmin(VideoRepository $videoRepository): Response
     {
         return $this->render('admin/videoindex.html.twig', [

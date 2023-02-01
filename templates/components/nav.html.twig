@@ -27,13 +27,35 @@
 							<a class="nav-link active" aria-current="page" href="/logout">DECONNEXION</a>
 						</li>
 					{% else %}
-
 						<li class="nav-item">
 							<a class="nav-link active" aria-current="page" href="/login">CONNEXION</a>
 						</li>
 					{% endif %}
-				</ul>
-			</div>
+					{% if is_granted('ROLE_ADMIN') %}
+						<li class="nav-item">
+							<div class="dropdown">
+
+								<button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+									ADMINISTRATION
+								</button>
+								<ul class="dropdown-menu">
+									<li>
+										<a class="dropdown-item" href="/picture/admin">PHOTOS</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="/video/admin">VIDEOS</a>
+									</li>
+									<li>
+										<a class="dropdown-item" href="/gif/admin">GIFS</a>
+									</li>
+								</ul>
+							</div>
+						</li>
+					</li>
+
+
+				{% endif %}
+			</ul>
 		</div>
 	</div>
-</nav>
+</div></nav>

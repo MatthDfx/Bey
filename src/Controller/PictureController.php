@@ -22,7 +22,7 @@ class PictureController extends AbstractController
         ]);
     }
 
-    #[Route('/', name: 'app_adminpicture_index', methods: ['GET'])]
+    #[Route('/admin', name: 'app_adminpicture_index', methods: ['GET'])]
     public function indexAdmin(PictureRepository $pictureRepository): Response
     {
         return $this->render('admin/pictureindex.html.twig', [
@@ -40,7 +40,7 @@ class PictureController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $pictureRepository->save($picture, true);
 
-            return $this->redirectToRoute('app_picture_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_adminpicture_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('picture/new.html.twig', [
@@ -66,7 +66,7 @@ class PictureController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $pictureRepository->save($picture, true);
 
-            return $this->redirectToRoute('app_picture_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_adminpicture_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('picture/edit.html.twig', [
@@ -82,7 +82,7 @@ class PictureController extends AbstractController
             $pictureRepository->remove($picture, true);
         }
 
-        return $this->redirectToRoute('app_picture_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_adminpicture_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/picture/{id}/likeList', name: 'app_addPictureLikeList', methods: ["GET", "POST"])]

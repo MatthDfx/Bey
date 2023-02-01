@@ -16,7 +16,11 @@ body {
 }
 
 .home-img {
-    height: 100%;
+    height: 90%;
+    background-image: url(/assets/images/yellowposter.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .loginform {
@@ -31,4 +35,20 @@ body {
 
 .card {
     --bs-card-bg: none;
+}
+
+.box {
+    position: relative;
+    text-align: center;
+}
+
+.top-left {
+    position: absolute;
+    top: 8px;
+    left: 16px;
+}
+
+i {
+    color: red;
+    font-size: 1.5em;
 }

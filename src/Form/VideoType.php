@@ -12,9 +12,7 @@ class VideoType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('url')
-            ->add('users')
-        ;
+            ->add('url');
     }
 
     public function configureOptions(OptionsResolver $resolver): void

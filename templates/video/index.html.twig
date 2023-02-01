@@ -9,10 +9,12 @@
 			<div class="p-5 mb-4 rounded-3">
 				<div class="container-fluid py-5">
 					{% for video in videos %}
-						<a class="likeVideoButton" href="{{ path('app_addVideoLikeList', {id: video.id})}}">
-							<i class="bi {{ app.user.isInLikeListVideo(video) ? 'bi-heart-fill' : 'bi-heart' }}"></i>
-						</a>
-						<iframe width="560" height="315" src="{{video.url}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+						{% if app.user %}
+							<a class="likeVideoButton" href="{{ path('app_addVideoLikeList', {id: video.id})}}">
+								<i class="bi {{ app.user.isInLikeListVideo(video) ? 'bi-heart-fill' : 'bi-heart' }}"></i>
+							</a>
+						{% endif %}
+						<iframe src="{{video.url}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 					{% endfor %}
 				</div>
