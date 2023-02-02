@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+	{% if error %}
+		<div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+	{% endif %}
+
+	<h1 class="text-center mt-5">CONNECTEZ-VOUS</h1>
+
+	<div class="d-flex h-100">
+		<div class="mx-auto align-self-center">
+			<form action="{{ path('app_login') }}" method="post">
+				<div class="loginform mb-3">
+					<label for="username" class="form-label">Email:</label>
+					<input type="text" class="form-control rounded-5" id="username" name="_username">
+
+					<label for="password" class="form-label mt-1">Password:</label>
+					<input type="password" id="password" name="_password" class="form-control rounded-5">
+
+					<input type="hidden" name="_target_path" value="/">
+					<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+
+					<button class="btn btn-light mt-3 rounded-5" type="submit">Connexion</button>
+				</div>
+
+			</form>
+			<button class="btn btn-light mt-3 rounded-5">
+				<a href="/register">Inscrivez-vous</a>
+			</button>
+		</div>
+	</div>
+{% endblock %}

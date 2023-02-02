@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Gif index
+{% endblock %}
+
+{% block body %}
+	<h1>Tout les Gifs</h1>
+	<button class="btn btn-light rounded-5">
+		<a href="{{ path('app_gif_new') }}">Ajouter un nouveau Gif</a>
+	</button>
+	<table class="table">
+		<thead>
+			<tr>
+				<th class="text-center">Nom du fichier</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for gif in gifs|sort ((b, a) => a.id <=> b.id) %}
+				<tr>
+					<td>
+						<img class="mx-auto d-block gif" src="{{ vich_uploader_asset(gif) }}">
+					</td>
+					<td>
+						{{ include('gif/_delete_form.html.twig') }}
+					</td>
+				</tr>
+			{% else %}
+				<tr>
+					<td colspan="3">no records found</td>
+				</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Gif
+{% endblock %}
+
+{% block body %}
+	<h1>Ajouter un Gif</h1>
+
+	{{ include('gif/_form.html.twig') }}
+
+	<button class="btn btn-light rounded-5">
+		<a href="{{ path('app_admingif_index') }}">Retour aux Gifs</a>
+	</button>
+{% endblock %}
