@@ -14,6 +14,15 @@ body {
     height: 100%;
 }
 
+// Nav-Bar
+.bg-dark {
+    --bs-bg-opacity: 0.5;
+}
+
+:root {
+    --bs-dark-rgb: 0;
+}
+
 .home-img {
     height: 90%;
     background-image: url(/assets/images/yellowposter.jpg);
@@ -63,10 +72,6 @@ i {
 a {
     color: black;
     text-decoration: none;
-}
-
-.video {
-    height: 100%;
 }
 
 .btn {
