@@ -11,8 +11,8 @@
 			<div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-1">
 				{% for picture in pictures|sort ((b, a) => a.id <=> b.id) %}
 
-					<div class="col box">
-						<div class="card">
+					<div class="col box mt-0">
+						<div class="">
 							{% if app.user %}
 								<div class="top-left">
 									<a class="likePictureButton" href="{{ path('app_addPictureLikeList', {id: picture.id})}}">
