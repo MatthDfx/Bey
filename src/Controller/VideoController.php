@@ -31,7 +31,6 @@ class VideoController extends AbstractController
         ]);
     }
 
-    #[IsGranted(['ROLE_ADMIN'])]
     #[Route('/new', name: 'app_video_new', methods: ['GET', 'POST'])]
     public function new(Request $request, VideoRepository $videoRepository): Response
     {
@@ -40,6 +39,8 @@ class VideoController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $url = $video->getUrl();
+            $video->setUrl(substr_replace($url, "embed/", 24, 8));
             $videoRepository->save($video, true);
 
             return $this->redirectToRoute('app_video_index', [], Response::HTTP_SEE_OTHER);
@@ -51,7 +52,6 @@ class VideoController extends AbstractController
         ]);
     }
 
-    #[IsGranted(['ROLE_ADMIN'])]
     #[Route('/{id}', name: 'app_video_show', methods: ['GET'])]
     public function show(Video $video): Response
     {
@@ -60,7 +60,6 @@ class VideoController extends AbstractController
         ]);
     }
 
-    #[IsGranted(['ROLE_ADMIN'])]
     #[Route('/{id}/edit', name: 'app_video_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Video $video, VideoRepository $videoRepository): Response
     {
@@ -78,7 +77,7 @@ class VideoController extends AbstractController
             'form' => $form,
         ]);
     }
-    #[IsGranted(['ROLE_ADMIN'])]
+
     #[Route('/{id}', name: 'app_video_delete', methods: ['POST'])]
     public function delete(Request $request, Video $video, VideoRepository $videoRepository): Response
     {
@@ -86,7 +85,7 @@ class VideoController extends AbstractController
             $videoRepository->remove($video, true);
         }
 
-        return $this->redirectToRoute('app_video_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_adminvideo_index', [], Response::HTTP_SEE_OTHER);
     }
 
     #[Route('/video/{id}/likeList', name: 'app_addVideoLikeList', methods: ["GET", "POST"])]

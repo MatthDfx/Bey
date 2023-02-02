@@ -12,3 +12,4 @@ require('bootstrap');
 import './bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import './likelist';
+import './topPage';

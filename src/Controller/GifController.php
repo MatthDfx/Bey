@@ -41,7 +41,7 @@ class GifController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $gifRepository->save($gif, true);
 
-            return $this->redirectToRoute('app_gif_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_admingif_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('gif/new.html.twig', [
@@ -77,14 +77,15 @@ class GifController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_gif_delete', methods: ['POST'])]
-    public function delete(Request $request, Gif $gif, GifRepository $gifRepository): Response
+    public function delete(Request $request, Gif $entity, GifRepository $gifRepository): Response
     {
-        if ($this->isCsrfTokenValid('delete' . $gif->getId(), $request->request->get('_token'))) {
-            $gifRepository->remove($gif, true);
+        if ($this->isCsrfTokenValid('delete' . $entity->getId(), $request->request->get('_token'))) {
+            $gifRepository->remove($entity, true);
         }
 
-        return $this->redirectToRoute('app_gif_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_admingif_index', [], Response::HTTP_SEE_OTHER);
     }
+
 
     #[Route('/gif/{id}/likeList', name: 'app_addGifLikeList', methods: ["GET", "POST"])]
     public function addToLikeListGif(int $id, Gif $gif, UserRepository $userRepository)

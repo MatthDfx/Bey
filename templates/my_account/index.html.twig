@@ -21,7 +21,7 @@
 
 									<div class="col">
 										<div class="card">
-											<img class="card-img-top" src="{{asset('build/images/' ~ picture.poster)}}" alt="Card image">
+											<img class="card-img-top" src="{{ vich_uploader_asset(picture) }}" alt="Card image">
 
 										</div>
 									</div>
@@ -60,7 +60,7 @@
 					{% for gif in user.likeListGif %}
 						<div class="col">
 							<div class="card">
-								<img class="card-img-top" src="{{asset('build/images/' ~ gif.url)}}" alt="Card image">
+								<img class="card-img-top" src="{{ vich_uploader_asset(gif) }}" alt="Card image">
 
 							</div>
 						</div>

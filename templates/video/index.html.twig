@@ -8,7 +8,7 @@
 		<div class="row row-cols-1 row-cols-sm-2 row-cols-md-2 g-2">
 			<div class="p-5 mb-4 rounded-3">
 				<div class="container-fluid py-5">
-					{% for video in videos %}
+					{% for video in videos|sort ((b, a) => a.id <=> b.id) %}
 						{% if app.user %}
 							<a class="likeVideoButton" href="{{ path('app_addVideoLikeList', {id: video.id})}}">
 								<i class="bi {{ app.user.isInLikeListVideo(video) ? 'bi-heart-fill' : 'bi-heart' }}"></i>

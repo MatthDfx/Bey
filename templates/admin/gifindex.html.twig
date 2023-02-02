@@ -5,7 +5,9 @@
 
 {% block body %}
 	<h1>Tout les Gifs</h1>
-
+	<button class="btn btn-light rounded-5">
+		<a href="{{ path('app_gif_new') }}">Ajouter un nouveau Gif</a>
+	</button>
 	<table class="table">
 		<thead>
 			<tr>
@@ -14,15 +16,13 @@
 			</tr>
 		</thead>
 		<tbody>
-			{% for gif in gifs %}
+			{% for gif in gifs|sort ((b, a) => a.id <=> b.id) %}
 				<tr>
 					<td>
-						<img class="mx-auto d-block gif" src="{{asset('build/images/' ~ gif.url)}}">
+						<img class="mx-auto d-block gif" src="{{ vich_uploader_asset(gif) }}">
 					</td>
 					<td>
-						<button class="btn btn-light rounded-5">
-							<a href="{{ path('app_gif_edit', {'id': gif.id}) }}">Modifier</a>
-						</button>
+						{{ include('gif/_delete_form.html.twig') }}
 					</td>
 				</tr>
 			{% else %}
@@ -32,8 +32,4 @@
 			{% endfor %}
 		</tbody>
 	</table>
-
-	<button class="btn btn-light rounded-5">
-		<a href="{{ path('app_gif_new') }}">Ajouter un nouveau Gif</a>
-	</button>
 {% endblock %}

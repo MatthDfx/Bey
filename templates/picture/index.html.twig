@@ -9,7 +9,7 @@
 	<div class="album py-5">
 		<div class="">
 			<div class="row row-cols-1 row-cols-sm-1 row-cols-md-1 g-1">
-				{% for picture in pictures %}
+				{% for picture in pictures|sort ((b, a) => a.id <=> b.id) %}
 
 					<div class="col box">
 						<div class="card">
@@ -20,12 +20,16 @@
 									</a>
 								</div>
 							{% endif %}
-							<img class="card-img-top" src="{{asset('build/images/' ~ picture.poster)}}" alt="Card image">
+							<img class="card-img-top" src="{{ vich_uploader_asset(picture) }}" alt="Card image">
 						</div>
 					</div>
 
 				{% endfor %}
 			</div>
 		</div>
+	</div>
+	<div>
+		<a id="cBack" class="cInvisible" href="#topPage"></a>
+		<script src="/assets/styles/topPage.js"></script>
 	</div>
 {% endblock %}
